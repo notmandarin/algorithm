@@ -7,10 +7,7 @@ if M < 45 :
         H += 1 
         M = 0
 
-elif M == 45 :
-    M = 0
-
-else : #M > 45
+else : 
     M -= 45
     
 if H < 0 :
