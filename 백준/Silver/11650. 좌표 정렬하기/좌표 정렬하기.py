@@ -1,12 +1,8 @@
 N = int(input())
 
-LIST = []
-for i in range(N) :
-    N = list(map(int,input().split()))
-    LIST.append(N)
+LIST = [list(map(int,input().split())) for i in range(N)]
 
-
-sorted_LIST = sorted(LIST, key=lambda x :(x[0], x[1]))
+sorted_LIST = sorted(LIST)
 
 for i in sorted_LIST :
     print(*i)
