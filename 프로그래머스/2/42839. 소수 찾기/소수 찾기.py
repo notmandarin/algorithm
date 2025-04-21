@@ -1,20 +1,28 @@
+import math
 from itertools import permutations
-from math import sqrt
 
+answer = []
 def solution(numbers):
-    numbers_list = list(numbers)
-    len_numbers = len(numbers)
-    per_numbers = [''.join(i) for p in range(1,len_numbers+1) for i in permutations(numbers_list, p)]    
-    int_numbers = [int(j) for j in per_numbers]
-    final_numbers = list(set(int_numbers))
+    perm_list = []
     
-    answer = 0
-    for f in final_numbers :
-        if f>=2 :
-            for i in range(2,int(sqrt(f)+1)) :
-                if f%i == 0:
+    for r in range(1, len(numbers)+1) :
+        perm = permutations(numbers, r)
+        for p in perm :
+            perm_list.append(''.join(p))
+    
+    int_list = []
+    for l in perm_list :
+        int_list.append(int(l))
+    
+    int_list = list(set(int_list))
+    
+    for i in int_list :
+        is_Prime = True
+        if i >= 2 :
+            for j in range(2,int(math.sqrt(i))+1) :
+                if i % j == 0 :
+                    is_Prime = False
                     break
-            else :
-                answer +=1
-    
-    return answer 
+            if is_Prime == True :
+                answer.append(i)
+    return len(answer)
