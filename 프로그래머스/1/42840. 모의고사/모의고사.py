@@ -1,22 +1,34 @@
 def solution(answers):
-    pattern_1 = [1,2,3,4,5] #5
-    pattern_2 = [2,1,2,3,2,4,2,5] #8
-    pattern_3 = [3,3,1,1,2,2,4,4,5,5] #10
-    patterns = [pattern_1, pattern_2, pattern_3]
-    sum = [0,0,0]
-    len_ans = len(answers)
+    l = len(answers)
+    pat_1 = [1,2,3,4,5]*l
+    pat_2 = [2,1,2,3,2,4,2,5]*l
+    pat_3 = [3,3,1,1,2,2,4,4,5,5]*l
     
-    for idx, pattern in enumerate(patterns) :
-        pattern = pattern*((len_ans // len(pattern)) + 1) 
-        for i in range(len_ans) :
-            if answers[i] == pattern[i] :
-                sum[idx] += 1
+    sum1 = 0
+    sum2 = 0
+    sum3 = 0
     
-    max_sum = max(sum)
+    for a, p in zip(answers,pat_1) :
+        if a == p :
+            sum1 += 1
+
+    for a, p in zip(answers,pat_2) :
+        if a == p :
+            sum2 += 1
+            
+    for a, p in zip(answers,pat_3) :
+        if a == p :
+            sum3 += 1
     
-    solution = []
-    for i,s in enumerate(sum) :
-        if max_sum == s :
-            solution.append(i+1)
+    top = max([sum1, sum2, sum3])
     
-    return solution
+    answer = []
+    
+    if top == sum1 :
+        answer.append(1)
+    if top == sum2 :
+        answer.append(2)
+    if top == sum3 :
+        answer.append(3)
+    
+    return answer
