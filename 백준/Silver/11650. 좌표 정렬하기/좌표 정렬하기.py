@@ -1,8 +1,6 @@
 N = int(input())
+LIST = [input().split() for _ in range(N)]
+LIST.sort(key=lambda x: (int(x[0]), int(x[1]))) 
 
-LIST = [list(map(int,input().split())) for i in range(N)]
-
-sorted_LIST = sorted(LIST)
-
-for i in sorted_LIST :
-    print(*i)
+for L in LIST:
+    print(' '.join(L))
