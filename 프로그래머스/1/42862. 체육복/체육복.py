@@ -1,28 +1,18 @@
 def solution(n, lost, reserve):
-    # 1. 모든 학생이 체육복 1개씩 있다고 가정
-    students = [1] * n
+    s_lost = set(lost)
+    s_reserve = set(reserve)
     
-    # 2. 도난 반영
-    for l in lost:
-        students[l-1] -= 1
+    real_lost = list(s_lost - s_reserve)
+    real_reserve = list(s_reserve - s_lost)
     
-    # 3. 여벌 반영
-    for r in reserve:
-        students[r-1] += 1
+    len_lost = len(real_lost)
     
-    # 4. 빌려주기
-    for i in range(n):
-        # 체육복이 없다면
-        if students[i] == 0:
-            # 앞 번호 학생이 여벌이 있는지 확인
-            if i > 0 and students[i-1] == 2:
-                students[i-1] -= 1
-                students[i] = 1
-            # 뒤 번호 학생이 여벌이 있는지 확인
-            elif i < n-1 and students[i+1] == 2:
-                students[i+1] -= 1
-                students[i] = 1
-                
-    # 5. 체육복을 1개 이상 가진 학생의 수
-    answer = sum(s >= 1 for s in students)
-    return answer
+    save = 0
+    for l in real_lost :
+        if l-1 in real_reserve :
+            save += 1
+            real_reserve.remove(l-1)
+        elif l+1 in real_reserve :
+            save += 1 
+            real_reserve.remove(l+1)
+    return n - len_lost + save
